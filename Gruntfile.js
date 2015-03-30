@@ -1,8 +1,8 @@
 module.exports = function(grunt) {
 
-    grunt.registerTask( 'default', [ 'clean', 'browserify', 'sass', 'autoprefixer', 'copy', 'hapi', 'watch'] );
+    grunt.registerTask( 'default', [ 'clean', 'sass', 'autoprefixer', 'copy', 'hapi', 'watch'] );
 
-    grunt.registerTask( 'build', [ 'clean', 'browserify', 'sass', 'autoprefixer', 'copy' ] );
+    grunt.registerTask( 'build', [ 'clean', 'sass', 'autoprefixer', 'copy' ] );
 
     grunt.registerTask( 'run', [ 'hapi', 'watch' ]);
 
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         autoprefixer: {
             dist: {
                 files: {
-                    './dist/css/style.css': './dist/css/style.css'
+                    './dist/css/app.css': './dist/css/app.css'
                 }
             }
         },
@@ -61,8 +61,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     src: [ './**/*.png', './**/*.jpg' ],
-                    dest: './dist/images',
-                    cwd: './app/assets/'
+                    dest: './dist/img',
+                    cwd: './app/img/'
                 }, {
                     expand: true,
                     src: [ './**/*.html' ],
@@ -73,6 +73,16 @@ module.exports = function(grunt) {
                     src: [ './**/*.html' ],
                     dest: './dist/templates',
                     cwd: './app/templates'
+                }, {
+                    expand: true,
+                    src: ['./**/*.js'],
+                    dest: './dist/js',
+                    cwd: './app/scripts'
+                }, {
+                    expand: true,
+                    src: [ './**/*.*' ],
+                    dest: './dist/fonts',
+                    cwd: './app/fonts'
                 }]
             }
         },
