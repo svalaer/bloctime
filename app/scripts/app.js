@@ -2,6 +2,7 @@
 //require('./greyscale');
 //require('./main');
 
-angular.module('Bloctime', []).controller('Landing.controller', ['$scope', function($scope) {
+var Bloctime = angular.module('Bloctime', []);
+    Bloctime.controller('Landing.controller', ['$scope', function($scope) {
     console.log("Landing.controller");
 }]);

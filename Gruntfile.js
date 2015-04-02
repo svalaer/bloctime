@@ -83,7 +83,13 @@ module.exports = function(grunt) {
                     src: [ './**/*.*' ],
                     dest: './dist/fonts',
                     cwd: './app/fonts'
-                }]
+                }, {
+                    expand: true,
+                    src: [ './**/*.js' ],
+                    dest: './dist/assets',
+                    cwd: './assets/bower_components'
+                }
+                ]
             }
         },
 
