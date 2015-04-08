@@ -20,9 +20,9 @@ Bloctime.config(['$stateProvider', '$locationProvider', function($stateProvider,
 }]);
 
 Bloctime.controller('Landing.controller', ['$scope', function($scope) {
-    console.log("test");
+    console.log("test1");
 }]);
 
 Bloctime.controller('Timer.controller', ['$scope', function($scope) {
-    console.log("test");
+    console.log("test2");
 }]);
