@@ -5,12 +5,15 @@
 var Bloctime = angular.module('Bloctime', ['ui.router']);
 
 Bloctime.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
 
     $stateProvider.state('landing', {
         url: '/',
         controller: 'Landing.controller',
-        templateUrl: '/dist/index.html'
+        templateUrl: '/dist/landing.html'
     });
     $stateProvider.state('timer', {
         url: '/timer',
