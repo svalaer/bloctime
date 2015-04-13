@@ -88,7 +88,13 @@ module.exports = function(grunt) {
                     src: [ './**/*.js' ],
                     dest: './dist/assets',
                     cwd: './assets/bower_components'
+                },{
+                    expand: true,
+                    src: [ './**/*.coffee' ],
+                    dest: './dist/src',
+                    cwd: './app/src'
                 }
+
                 ]
             }
         },
