@@ -1,10 +1,10 @@
 module.exports = function(grunt) {
 
-    grunt.registerTask( 'default', [ 'clean', 'sass', 'autoprefixer', 'copy', 'hapi', 'watch'] );
+    grunt.registerTask( 'default', [ 'clean', 'sass', 'autoprefixer', 'copy', 'hapi', 'concat', 'watch' ] );
 
-    grunt.registerTask( 'build', [ 'clean', 'sass', 'autoprefixer', 'copy' ] );
+    grunt.registerTask( 'build', [ 'clean', 'sass', 'autoprefixer', 'copy', 'concat'] );
 
-    grunt.registerTask( 'run', [ 'hapi', 'watch' ]);
+    grunt.registerTask( 'run', [ 'hapi', 'watch', 'concat']);
 
     grunt.initConfig({
         browserify: {
@@ -48,7 +48,8 @@ module.exports = function(grunt) {
                     'browserify',
                     'sass',
                     'autoprefixer',
-                    'copy'
+                    'copy',
+                    'concat'
                 ],
                 options: {
                     spawn: false
@@ -73,12 +74,8 @@ module.exports = function(grunt) {
                     src: [ './**/*.html' ],
                     dest: './dist/templates',
                     cwd: './app/templates'
-                }, {
-                    expand: true,
-                    src: ['./**/*.js'],
-                    dest: './dist/js',
-                    cwd: './app/scripts'
-                }, {
+                },
+                    {
                     expand: true,
                     src: [ './**/*.*' ],
                     dest: './dist/fonts',
@@ -96,6 +93,16 @@ module.exports = function(grunt) {
                 }
 
                 ]
+            }
+        },
+
+        concat: {
+            js: {
+                src: ['app/scripts/spine.js', 'app/scripts/application.js', 'app/scripts/app.js', 'app/scripts/firebase.js',
+                    'app/scripts/greyscale.js', 'app/scripts/jquery.js', 'app/scripts/jquery.tmpl.js', 'app/scripts/json2.js',
+                    'app/scripts/local.js', 'app/scripts/main.js'
+                ],
+                dest: 'dist/js/app.js'
             }
         },
 
@@ -120,4 +127,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-hapi');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 };
