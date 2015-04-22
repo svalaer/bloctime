@@ -98,9 +98,7 @@ module.exports = function(grunt) {
 
         concat: {
             js: {
-                src: ['app/scripts/spine.js', 'app/scripts/application.js', 'app/scripts/app.js', 'app/scripts/firebase.js',
-                    'app/scripts/greyscale.js', 'app/scripts/jquery.js', 'app/scripts/jquery.tmpl.js', 'app/scripts/json2.js',
-                    'app/scripts/local.js', 'app/scripts/main.js'
+                src: ['app/scripts/app.js', 'app/scripts/firebase.js', 'app/scripts/greyscale.js'
                 ],
                 dest: 'dist/js/app.js'
             }

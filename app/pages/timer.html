@@ -1,29 +1,23 @@
-<script type="text/x-jquery-tmpl" id="taskTemplate">
-    <div class="item {{if done}}done{{/if}}">
-      <div class="view" title="Double click to edit...">
-        <input type="checkbox" {{if done}}checked="checked"{{/if}}>
-        <span>${name}</span> <a class="destroy"></a>
-      </div>
+<div class="container">
+    <h4 class="list-group-item title">Angular To-dos List</h4>
+    <!-- List of Todos -->
+    <div data-ng-repeat="todo in todos" class="list-group-item">
 
-      <div class="edit">
-        <input type="text" value="${name}">
-      </div>
+        <input type="Checkbox" ng-model='todo.done' />
+        <input type="text" ng-model="todo.text" class='todo'/>
+        <a href="" ng-click="move($index, 'up')"><span class="glyphicon glyphicon-arrow-up"></span></a>
+        <a href="" ng-click="move($index, 'down')"><span class="glyphicon glyphicon-arrow-down"></span></a>
+        <a href="" ng-click="removeTodo($index)"><span class="glyphicon glyphicon-remove-circle"></span></a>
+
     </div>
-  </script>
-
-<div id="views">
-    <div id="tasks">
-        <h1>Todos</h1>
-
-        <form>
-            <input type="text" placeholder="What needs to be done?">
-        </form>
-
-        <div class="items"></div>
-
-        <footer>
-            <a class="clear">Clear completed</a>
-            <div class="count"><span class="countVal"></span> left</div>
-        </footer>
+    <div class="list-group-item" ng-show="todoText">
+        <input type="checkbox" disabled="true">
+        <input type="text" disabled="true" class='todo' placeholder="{{ todoText }}">
     </div>
+    <!-- Add todo Form -->
+    <form ng-submit='addTodo()' class="list-group-item">
+        <input type="text" ng-model="todoText"/>
+        <input type="submit"/>
+    </form>
+
 </div>
