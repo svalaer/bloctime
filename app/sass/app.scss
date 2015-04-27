@@ -5,14 +5,8 @@
 /* Animations */
 @import "_animate";
 
-body {
-  background-color: black !important;
-  
-}
-
-section {
-  background-color: black !important;
-  
+html {
+    background-color: black !important;
 }
 
 .uiLanding {
@@ -29,7 +23,7 @@ body {
   font-family: "Helvetica Neue", helvetica, arial, sans-serif;
   font-size: 14px;
   line-height: 1.4em;
-  background: #eeeeee;
+  background: #000000;
   color: #333333;
 }
 

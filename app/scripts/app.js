@@ -2,7 +2,7 @@
 //require('./greyscale');
 //require('./main');
 
-var Bloctime = angular.module('Bloctime', ['ui.router']);
+var Bloctime = angular.module('Bloctime', ['ui.router', 'firebase']);
 
 Bloctime.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
     $locationProvider.html5Mode({
