@@ -17,7 +17,7 @@ Bloctime.config(['$stateProvider', '$locationProvider', function($stateProvider,
     });
     $stateProvider.state('timer', {
         url: '/timer',
-        controller: 'TodoCtrl.controller',
+        controller: 'DemoCtrl.controller',
         templateUrl: '/dist/timer.html'
     });
 }]);
@@ -30,83 +30,69 @@ Bloctime.controller('Timer.controller', ['$scope', function($scope) {
     console.log("test2");
 }]);
 
-Bloctime.controller('TodoCtrl', ['$scope', 'angularFire','$interval', TodoCtrl]);
+Bloctime.controller('DemoCtrl', ['$scope', 'angularFire','$interval', DemoCtrl]);
+
+Bloctime.constant("FIREBASE_URL", "'https://blinding-inferno-1918.firebaseio.com/'" )
 
 
-function TodoCtrl($scope, angularFire, $interval) {
+function DemoCtrl($scope, $firebase, FIREBASE_URL) {
 
-    var fireData = new Firebase('https://blinding-inferno-1918.firebaseio.com/');
-
-    angularFire(fireData, $scope,'todos');
-
-    // Initialize List of Todos
-    $scope.todos = [
-    ];
-
-// Function to add new todo
-    $scope.addTodo = function () {
-        var newTodo = {
-            done: false,
-            text: $scope.todoText,
-            timestamp: moment()
-        };
-
-        $scope.todos.push(newTodo);
-
-        $scope.todoText = '';
-    };
-
-    // Function to remove a todo
-    $scope.removeTodo = function(start) {
-        $scope.todos.splice(start, 1);
-    };
-// function to move an item
-    $scope.move = function(index, direction) {
-        // Handle moving up
-        if (direction === 'up'){
-            if (index === 0){
-                return;
-            }
-            index = index -1;
-        }
-        // Handle moving down
-        if (direction === 'down') {
-            if(index === $scope.todos.length -1){
-                return;
-            }
-
-        }
-        var todo = $scope.todos[index];
-        $scope.todos.splice(index + 2, 0, todo);
-        $scope.todos.splice(index, 1);
-    };
-
-    $scope.cleanupTasks = function() {
-        var timediff = 0;
-        var d1 = new Date();
-        var d2;
+    // Get Stored TODOs
+    var todosRef = new Firebase(FIREBASE_URL);
+    $scope.todos = $firebase(todosRef);
 
 
-        for (var i = 0; i < $scope.todos.length; i++) {
-            d2 = new Date($scope.todos[i].timestamp);
-            timediff = d1 -d2;
+    // Update the "completed" status
+    $scope.changeStatus   = function (item) {
 
-            console.log(timediff);
+        // Get the Firebase reference of the item
+        var itemRef = new  Firebase(FIREBASE_URL + item.id);
 
-            if (timediff > 10000){
-                $scope.todos.splice(i, 1);
-            }
-        }
-    };
-    function init() {
-        $interval(function(){
-            console.log('ping');
-            $scope.cleanupTasks()
-        }, 3000);
+        // Firebase : Update the item
+        $firebase(itemRef).$set({
+            id: item.id,
+            name : item.name,
+            completed: !item.completed
+        });
+
     }
-    init();
-}
 
+
+
+    // Remove a Todo
+    $scope.removeItem   = function (index, item, event) {
+
+        // Avoid wrong removing
+        if (item.id == undefined)return;
+
+        // Firebase: Remove item from the list
+        $scope.todos.$remove(item.id);
+
+    }
+
+
+
+    // Add new TODO
+    $scope.addItem  = function () {
+
+        // Create a unique ID
+        var timestamp = new Date().valueOf()
+
+        // Get the Firebase reference of the item
+        var itemRef = new Firebase(FIREBASE_URL + timestamp);
+
+        $firebase(itemRef).$set({
+            id: timestamp,
+            name : $scope.todoName,
+            completed: false
+        });
+
+        $scope.todoName = "";
+
+    }
+
+
+}
 
 
 

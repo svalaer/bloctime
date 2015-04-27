@@ -1,23 +1,58 @@
-<div class="container">
-    <h4 class="list-group-item title">Angular To-dos List</h4>
-    <!-- List of Todos -->
-    <div data-ng-repeat="todo in todos" class="list-group-item">
+<h2>Realtime ToDo list with AngularJS and AngularFire</h2>
+<h4>Try it opening two browsers and adding / removing a TODO</h4>
 
-        <input type="Checkbox" ng-model='todo.done' />
-        <input type="text" ng-model="todo.text" class='todo'/>
-        <a href="" ng-click="move($index, 'up')"><span class="glyphicon glyphicon-arrow-up"></span></a>
-        <a href="" ng-click="move($index, 'down')"><span class="glyphicon glyphicon-arrow-down"></span></a>
-        <a href="" ng-click="removeTodo($index)"><span class="glyphicon glyphicon-remove-circle"></span></a>
 
+<!--ADD ITEM FORM-->
+<form name="myForm">
+
+    <div>
+        <input type="text"
+               name="todoNameField"
+               ng-model="todoName"
+               placeholder="Add new task (min 3 chars)"
+               required ng-minlength="3"
+               class="form-control"
+               ng-keyup="($event.keyCode == 13 && todoName.length > 2) ? addItem() : return"
+               style="margin-bottom: 10px"
+                />
+
+        <button ng-click="addItem()"
+                ng-hide="myForm.todoNameField.$invalid"
+                class="btn btn-primary" type="button"
+                >Save Todo</button>
     </div>
-    <div class="list-group-item" ng-show="todoText">
-        <input type="checkbox" disabled="true">
-        <input type="text" disabled="true" class='todo' placeholder="{{ todoText }}">
+
+</form>
+
+<hr>
+
+
+<!--TODO LIST-->
+<div ng-repeat="item in todos" class=" list-group-item row">
+
+    <div  class="col-md-6">
+        <!--COMPLETED ICON-->
+         <span class="glyphicon glyphicon-thumbs-up"
+               ng-show="item.completed"> </span>
+
+
+        <!--todo label-->
+        <span>{{item.name}} </span>
+
+        <small  class="text-warning"> [ {{item.id}} ]</small>
     </div>
-    <!-- Add todo Form -->
-    <form ng-submit='addTodo()' class="list-group-item">
-        <input type="text" ng-model="todoText"/>
-        <input type="submit"/>
-    </form>
+
+
+    <div  class="col-md-6">
+        <!--Delete Todo button-->
+        <a class="btn btn-danger" ng-click="removeItem($index, item, $event)">
+            <i class="icon-remove-sign"></i>Delete
+        </a>
+
+        <a class="btn btn-warning" ng-click="changeStatus(item)">
+            <i class="icon-remove-sign"></i>Change Status
+        </a>
+    </div>
+
 
 </div>
