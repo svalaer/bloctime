@@ -35,7 +35,7 @@ Bloctime.constant("FIREBASE_URL", "'https://blinding-inferno-1918.firebaseio.com
 Bloctime.controller('DemoCtrl', ['$scope', '$firebaseObject', "FIREBASE_URL", function ($scope, $firebase, FIREBASE_URL) {
 
     // Get Stored TODOs
-    var todosRef = new Firebase(FIREBASE_URL);
+    var todosRef = new Firebase('https://blinding-inferno-1918.firebaseio.com/');
     $scope.todos = $firebase(todosRef);
 
 
@@ -43,7 +43,7 @@ Bloctime.controller('DemoCtrl', ['$scope', '$firebaseObject', "FIREBASE_URL", fu
     $scope.changeStatus   = function (item) {
 
         // Get the Firebase reference of the item
-        var itemRef = new  Firebase(FIREBASE_URL + item.id);
+        var itemRef = new  Firebase('https://blinding-inferno-1918.firebaseio.com/' + item.id);
 
         // Firebase : Update the item
         $firebase(itemRef).$set({
@@ -76,7 +76,7 @@ Bloctime.controller('DemoCtrl', ['$scope', '$firebaseObject', "FIREBASE_URL", fu
         var timestamp = new Date().valueOf();
 
         // Get the Firebase reference of the item
-        var itemRef = new Firebase(FIREBASE_URL + timestamp);
+        var itemRef = new Firebase('https://blinding-inferno-1918.firebaseio.com/' + timestamp);
 
         $firebase(itemRef).$set({
             id: timestamp,
