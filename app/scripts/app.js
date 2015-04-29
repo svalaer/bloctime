@@ -17,7 +17,7 @@ Bloctime.config(['$stateProvider', '$locationProvider', function($stateProvider,
     });
     $stateProvider.state('timer', {
         url: '/timer',
-        controller: 'DemoCtrl.controller',
+        controller: 'DemoCtrl',
         templateUrl: '/dist/timer.html'
     });
 }]);
@@ -30,12 +30,9 @@ Bloctime.controller('Timer.controller', ['$scope', function($scope) {
     console.log("test2");
 }]);
 
-Bloctime.controller('DemoCtrl', ['$scope', 'angularFire','$interval', DemoCtrl]);
+Bloctime.constant("FIREBASE_URL", "'https://blinding-inferno-1918.firebaseio.com/'" );
 
-Bloctime.constant("FIREBASE_URL", "'https://blinding-inferno-1918.firebaseio.com/'" )
-
-
-function DemoCtrl($scope, $firebase, FIREBASE_URL) {
+Bloctime.controller('DemoCtrl', ['$scope', '$firebaseObject', "FIREBASE_URL", function ($scope, $firebase, FIREBASE_URL) {
 
     // Get Stored TODOs
     var todosRef = new Firebase(FIREBASE_URL);
@@ -55,7 +52,7 @@ function DemoCtrl($scope, $firebase, FIREBASE_URL) {
             completed: !item.completed
         });
 
-    }
+    };
 
 
 
@@ -68,7 +65,7 @@ function DemoCtrl($scope, $firebase, FIREBASE_URL) {
         // Firebase: Remove item from the list
         $scope.todos.$remove(item.id);
 
-    }
+    };
 
 
 
@@ -76,7 +73,7 @@ function DemoCtrl($scope, $firebase, FIREBASE_URL) {
     $scope.addItem  = function () {
 
         // Create a unique ID
-        var timestamp = new Date().valueOf()
+        var timestamp = new Date().valueOf();
 
         // Get the Firebase reference of the item
         var itemRef = new Firebase(FIREBASE_URL + timestamp);
@@ -89,10 +86,14 @@ function DemoCtrl($scope, $firebase, FIREBASE_URL) {
 
         $scope.todoName = "";
 
-    }
+    };
 
 
-}
+}]);
+
+
+
+
 
 
 
